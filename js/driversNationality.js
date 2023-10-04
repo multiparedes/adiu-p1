@@ -1,6 +1,6 @@
 async function getDriversNationailty() {
     try {
-        const response = await fetch('http://ergast.com/api/f1/current/drivers.json?limit=1000');
+        const response = await fetch('https://ergast.com/api/f1/current/drivers.json?limit=1000');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
