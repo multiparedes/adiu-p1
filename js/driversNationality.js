@@ -1,4 +1,7 @@
 async function getDriversNationailty() {
+    const loader = document.getElementById('container-pie-drivers-loader')
+    loader.style.display = 'block'
+
     try {
         const response = await fetch('https://ergast.com/api/f1/current/drivers.json?limit=1000');
         if (!response.ok) {
@@ -13,6 +16,7 @@ async function getDriversNationailty() {
             counts[nationality] = (counts[nationality] || 0) + 1;
             return counts;
         }, {});
+        loader.style.display = 'none'
 
             return Object.entries(nationalityCounts).map(([name, y]) => ({ name, y }));
 

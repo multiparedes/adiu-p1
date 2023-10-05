@@ -4,9 +4,16 @@ import { getDriversWins } from "./js/driversWin.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
 
+
+    
+  // Obtén una referencia al elemento del skeleton loader
+  const skeletonLoader = document.getElementById('container-pie-drivers-loader');
+  // Mostrar el skeleton loader
+  skeletonLoader.style.display = 'block';
     // Generar una paleta de colores
     const [drivers,wins] = await Promise.all([getDriversNationailty(), getDriversWins()]);
-
+  // Ocultar el skeleton loader una vez que los datos se han cargado
+  skeletonLoader.style.display = 'none';
     console.log(wins)
 
     // Usar los colores en tu serie de datos
@@ -34,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Gráfico de barras para las victorias de los conductores
-    Highcharts.chart('container', {
+    Highcharts.chart('container-bars-wins', {
         chart: {
             type: 'column'
         },
@@ -74,5 +81,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }]
     });
     
-
+    Array.from(document.querySelectorAll('.highcharts-credits')).map((item) => {
+        item.style.display = 'none';
+      });
 });

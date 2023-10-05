@@ -10,7 +10,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+
+    <!-- También necesitarás el archivo GeoJSON para el mapa mundial -->
+    <script src="https://code.highcharts.com/mapdata/custom/world.geo.json"></script>
+
     <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://kit.fontawesome.com/d7530f0f84.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,52 +24,101 @@
 </head>
 
 <body class="bg-slate-300" style="font-family: 'Barlow', sans-serif;">
-    <nav class="bg-white flex p-4 bg-red-200 justify-between items-center px-6">
-        <a href="#"
-            class="font-bold text-lg bg-gradient-to-r from-red-600 to-blue-500 text-transparent bg-clip-text">Formula 1 API <i class="fa-solid fa-gas-pump ml-2 "></i></a>
-        <div class="flex gap-4">
-            <a href="https://www.uib.cat" target="_blank"
-                class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors">UIB<i
-                    class="fa-solid fa-globe ml-2"></i></a>
-            <a href="http://ergast.com/mrd/" target="_blank"
-                class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors">API<i
-                    class="fa-solid fa-book ml-2"></i></a>
+    <div class="w-full bg-white">
+        <div class="flex p-4 justify-center bg-white shadow">
+            <nav class="px-6 flex gap-1 w-full max-w-screen-xl items-center justify-between px-4 lg:px-1 xl:px-0">
+                <a href="#"
+                    class="font-bold text-lg bg-gradient-to-r from-red-600 to-blue-500 text-transparent bg-clip-text">Formula
+                    1 API <i class="fa-solid fa-gas-pump ml-2 "></i></a>
+                <div class="flex gap-4">
+                    <a href="https://www.uib.cat" target="_blank"
+                        class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors flex items-center gap-2"><span
+                            class="md:block hidden">UIB</span><i class="fa-solid fa-globe"></i></a>
+                    <a href="http://ergast.com/mrd/" target="_blank"
+                        class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors flex items-center gap-2"><span
+                            class="md:block hidden">API</span><i class="fa-solid fa-book"></i></a>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </div>
 
-    <main class="grid justify-center">
-        <section class="grid gap-4 py-4 grid-cols-1 sm:grid-cols-2 max-w-6xl mx-4">
+    <main class="flex h-20 justify-center ">
+        <section class="grid gap-4 py-4 grid-cols-1 md:grid-cols-2 mx-4 w-full max-w-screen-xl">
             <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Bienvenido a la práctica uno de ADIU 👋</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Bienvenido a la práctica uno de ADIU 👋
+                </h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">
-                    Para esta práctica hemos montado un dashboard para la visualización de datos proporcionados a través de
-                    una API con la librería Highcharts.
+                    Para esta práctica hemos montado un dashboard para la visualización de datos proporcionados a través
+                    de una API con la librería Highcharts.
                 </p>
                 <p class="font-normal text-gray-700 dark:text-gray-400">
                     Para la API se ha elegido
                     <code class="text-red-500">Ergast</code> la cual nos proporciona datos relacionados con la
-                    Fórmula 1,
-                    incluyendo resultados de carreras, detalles de pilotos y equipos, clasificaciones, calendarios y
+                    Fórmula 1, incluyendo resultados de carreras, detalles de pilotos y equipos, clasificaciones,
+                    calendarios y
                     más.
                 </p>
             </div>
-            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Nacionalidad de todos los pilotos 🌍</h5>
-                <div id="container-pie-drivers"></div>
+            <div
+                class="w-full max-h-xl p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Nacionalidad de todos los pilotos 🌍
+                </h5>
+                <div role="status" id="container-pie-drivers-loader" class="p-4 animate-pulse md:p-6">
+                    <!-- Skeleton Loader para el gráfico pie -->
+                    <div class="w-full h-60 bg-gray-200 rounded-lg mb-4"></div>
+                    <div class="w-full h-72 bg-gray-200 rounded-lg mb-4"></div>
+                    <div class="w-full h-64 bg-gray-200 rounded-lg mb-4"></div>
+                </div>
+                
+                <div id="container-pie-drivers"></div> <!-- Contenido real -->
             </div>
-            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2">
+
+            <div
+                class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Carreras ganadas por pilotos 🏆</h5>
-                <div id="container"></div>
+                <div role="status" id="container-bars-wins-loader" class="p-4 animate-pulse md:p-6">
+                    <div class="flex items-baseline mt-4 space-x-6">
+                        <div class="w-full bg-gray-200 rounded-t-lg h-80"></div>
+                        <div class="w-full bg-gray-200 rounded-t-lg h-72"></div>
+                        <div class="w-full bg-gray-200 rounded-t-lg h-64"></div>
+                        <div class="w-full bg-gray-200 rounded-t-lg h-60"></div>
+                        <div class="w-full bg-gray-200 rounded-t-lg h-56"></div>
+                    </div>
+                    
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div id="container-bars-wins"></div>
             </div>
-            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2  col-span-2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Evolución de los pilotos </h5>
+            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 ">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Evolución de los pilotos 📈</h5>
                 <div id="container-pie-drivers"></div>
             </div>
 
-        </section>
     </main>
-    
+
 
 </body>
 
 </html>
+
+<style>
+    /* Estilo para el skeleton loader */
+    .skeleton-loader {
+        height: 300px;
+        width: 100%;
+        background-color: #f0f0f0;
+        /* Color de fondo del skeleton loader */
+        animation: loading 1.5s infinite;
+        /* Animación para simular la carga */
+    }
+
+    @keyframes loading {
+        0% {
+            background-position: -200px 0;
+        }
+
+        100% {
+            background-position: 200px 0;
+        }
+    }
+</style>
