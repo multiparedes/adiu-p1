@@ -1,6 +1,6 @@
 async function getDriversNationailty() {
     const loader = document.getElementById('container-pie-drivers-loader')
-    loader.style.display = 'block'
+    loader.style.display = 'flex'
 
     try {
         const response = await fetch('https://ergast.com/api/f1/current/drivers.json?limit=1000');
