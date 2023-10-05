@@ -5,17 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formula 1 API</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
-
-    <!-- También necesitarás el archivo GeoJSON para el mapa mundial -->
-    <script src="https://code.highcharts.com/mapdata/custom/world.geo.json"></script>
-
     <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://kit.fontawesome.com/d7530f0f84.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,8 +16,8 @@
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" type="image/x-icon">
 </head>
 
-<body class="bg-slate-300" style="font-family: 'Barlow', sans-serif;">
-    <div class="w-full bg-white">
+<body class="bg-slate-300 flex flex-col" style="font-family: 'Barlow', sans-serif;">
+    <header class="w-full bg-white">
         <div class="flex p-4 justify-center bg-white shadow">
             <nav class="px-6 flex gap-1 w-full max-w-screen-xl items-center justify-between px-4 lg:px-1 xl:px-0">
                 <a href="#"
@@ -40,20 +33,25 @@
                 </div>
             </nav>
         </div>
-    </div>
+    </header>
 
-    <main class="flex h-20 justify-center ">
+    <main class="flex justify-center">
         <section class="grid gap-4 py-4 grid-cols-1 md:grid-cols-2 mx-4 w-full max-w-screen-xl">
             <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Bienvenido a la práctica uno de ADIU 👋
                 </h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">
-                    Para esta práctica hemos montado un dashboard para la visualización de datos proporcionados a través
-                    de una API con la librería Highcharts.
+                    En esta emocionante práctica, te sumergirás en el fascinante mundo de la visualización de datos a
+                    través de la poderosa librería Highcharts. Aquí, explorarás cómo utilizar esta herramienta para
+                    representar información de manera efectiva y atractiva.
                 </p>
                 <p class="font-normal text-gray-700 dark:text-gray-400">
-                    Para la API se ha elegido
-                    <code class="text-red-500">Ergast</code> la cual nos proporciona datos relacionados con la
+                    Hemos seleccionado la API de <code class="text-red-500">Ergast</code>, una fuente de datos rica y
+                    completa relacionada con la Fórmula 1. Esta API nos brinda acceso a una amplia gama de información,
+                    que incluye resultados de carreras, detalles sobre pilotos y equipos, clasificaciones, calendarios
+                    de eventos y mucho más. Utilizarás estos datos para crear visualizaciones que contarán historias
+                    sobre el emocionante mundo de las carreras de Fórmula 1.
+                    la cual nos proporciona datos relacionados con la
                     Fórmula 1, incluyendo resultados de carreras, detalles de pilotos y equipos, clasificaciones,
                     calendarios y
                     más.
@@ -63,11 +61,12 @@
                 class="w-full max-h-xl p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Nacionalidad de todos los pilotos 🌍
                 </h5>
-                <div role="status" id="container-pie-drivers-loader" class="p-4 animate-pulse md:p-8 flex justify-center">
+                <div role="status" id="container-pie-drivers-loader"
+                    class="p-4 animate-pulse md:p-8 flex justify-center">
                     <!-- Skeleton Loader para el gráfico pie -->
                     <div class="w-72 h-72 bg-blue-300 rounded-full"></div>
                 </div>
-                
+
                 <div id="container-pie-drivers"></div> <!-- Contenido real -->
             </div>
 
@@ -82,41 +81,32 @@
                         <div class="w-full bg-blue-300 rounded-t-lg h-48"></div>
                         <div class="w-full bg-blue-300 rounded-t-lg h-32"></div>
                     </div>
-                    
+
                     <span class="sr-only">Loading...</span>
                 </div>
                 <div id="container-bars-wins"></div>
             </div>
             <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 ">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Evolución de los pilotos 📈</h5>
-                <div id="container-pie-drivers"></div>
+                <div role="status" id="container-chart-evolution-loader" class="p-4 animate-pulse md:p-8">
+
+                    <span class="relative bg-blue-300 w-full h-80 rounded-xl">
+                        <span class="bg-white h-2 w-full absolute bottom-24"> </span>
+                    </span>
+                    <span class="sr-only">Loading...</span>
+
+                </div>
+                <div id="container-chart-evolution"></div>
             </div>
-
     </main>
-
-
+    <footer class="bg-white text-slate-800 py-2">
+        <div class=" mx-auto text-center">
+            <p>Hecho por Martí Paredes
+                <a href="https://github.com/multiparedes" target="_blank"><i class="fa-brands fa-github ml-4"></i></a>
+                <a href="https://www.linkedin.com/in/martiparedessalom/" target="_blank"><i class="fa-brands fa-linkedin ml-2"></i></a>
+            </p>
+        </div>
+    </footer>
 </body>
 
 </html>
-
-<style>
-    /* Estilo para el skeleton loader */
-    .skeleton-loader {
-        height: 300px;
-        width: 100%;
-        background-color: #f0f0f0;
-        /* Color de fondo del skeleton loader */
-        animation: loading 1.5s infinite;
-        /* Animación para simular la carga */
-    }
-
-    @keyframes loading {
-        0% {
-            background-position: -200px 0;
-        }
-
-        100% {
-            background-position: 200px 0;
-        }
-    }
-</style>

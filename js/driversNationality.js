@@ -18,7 +18,7 @@ async function getDriversNationailty() {
         }, {});
         loader.style.display = 'none'
 
-            return Object.entries(nationalityCounts).map(([name, y]) => ({ name, y }));
+            return Object.entries(nationalityCounts).map(([name, z]) => ({ name, y: z, z }));
 
     } catch (error) {
         // Manejo de errores si la solicitud falla
