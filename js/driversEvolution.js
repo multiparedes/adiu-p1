@@ -1,6 +1,4 @@
 async function getDriversEvolution() {
-    const loader = document.getElementById('container-chart-evolution-loader')
-    loader.style.display = 'flex'
     try {
         const response = await fetch('https://ergast.com/api/f1/current/results.json?limit=1000');
         if (!response.ok) {
@@ -35,7 +33,6 @@ async function getDriversEvolution() {
 
         const driverList = Object.values(drivers);
 
-        loader.style.display = 'none';
 
         return { drivers: driverList, races };
     } catch (error) {

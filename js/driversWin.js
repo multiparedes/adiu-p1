@@ -1,7 +1,5 @@
 async function getDriversWins() {
 
-    const loader = document.getElementById('container-bars-wins-loader')
-    loader.style.display = 'flex'
     try {
         const response = await fetch('https://ergast.com/api/f1/current/driverStandings.json?limit=1000');
         if (!response.ok) {
@@ -16,7 +14,6 @@ async function getDriversWins() {
             y: parseInt(item.wins)
         })); // Filtrar conductores con victorias > 0
 
-        loader.style.display = 'none'
 
         return winsData;
     } catch (error) {

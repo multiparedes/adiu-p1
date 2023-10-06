@@ -35,7 +35,8 @@
         </div>
     </header>
 
-    <main class="flex justify-center">
+    <main class="min-h-screen" >
+        <div class="flex justify-center">
         <section class="grid gap-4 py-4 grid-cols-1 md:grid-cols-2 mx-4 w-full max-w-screen-xl">
             <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Bienvenido a la práctica uno de ADIU 👋
@@ -61,11 +62,6 @@
                 class="w-full max-h-xl p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Nacionalidad de todos los pilotos 🌍
                 </h5>
-                <div role="status" id="container-pie-drivers-loader"
-                    class="p-4 animate-pulse md:p-8 flex justify-center">
-                    <!-- Skeleton Loader para el gráfico pie -->
-                    <div class="w-72 h-72 bg-blue-300 rounded-full"></div>
-                </div>
 
                 <div id="container-pie-drivers"></div> <!-- Contenido real -->
             </div>
@@ -73,31 +69,14 @@
             <div
                 class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Carreras ganadas por pilotos 🏆</h5>
-                <div role="status" id="container-bars-wins-loader" class="p-4 animate-pulse md:p-8">
-                    <div class="flex items-baseline mt-4 space-x-6">
-                        <div class="w-full bg-blue-300 rounded-t-lg h-80"></div>
-                        <div class="w-full bg-blue-300 rounded-t-lg h-72"></div>
-                        <div class="w-full bg-blue-300 rounded-t-lg h-64"></div>
-                        <div class="w-full bg-blue-300 rounded-t-lg h-48"></div>
-                        <div class="w-full bg-blue-300 rounded-t-lg h-32"></div>
-                    </div>
 
-                    <span class="sr-only">Loading...</span>
-                </div>
                 <div id="container-bars-wins"></div>
             </div>
-            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 ">
+            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 row-span-2">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Evolución de los pilotos 📈</h5>
-                <div role="status" id="container-chart-evolution-loader" class="p-4 animate-pulse md:p-8">
-
-                    <span class="relative bg-blue-300 w-full h-80 rounded-xl">
-                        <span class="bg-white h-2 w-full absolute bottom-24"> </span>
-                    </span>
-                    <span class="sr-only">Loading...</span>
-
-                </div>
                 <div id="container-chart-evolution"></div>
             </div>
+        </div>
     </main>
     <footer class="bg-white text-slate-800 py-2">
         <div class=" mx-auto text-center">
