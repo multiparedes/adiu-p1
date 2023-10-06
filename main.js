@@ -49,9 +49,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         },
         legend: {
-            enabled: true
+            enabled: false
         },
         tooltip: {
+            headerFormat: '',
             pointFormat: 'Victorias: <b>{point.y}</b>'
         },
         series: [{

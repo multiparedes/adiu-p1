@@ -5,43 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formula 1 API</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
+    <meta name="description"
+        content="Un panel de visualización de datos simple y minimalista con graficos interactivos actualizados sobre Formula 1.">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
-    <script src="https://kit.fontawesome.com/d7530f0f84.js" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="main.js" type="module" defer></script>
+    <script src="main.js" type="module"></script>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" type="image/x-icon">
 </head>
 
 <body class="bg-slate-300 flex flex-col relative" style="font-family: 'Barlow', sans-serif;">
     <header class="w-full bg-white">
         <div class="flex p-4 justify-center bg-white shadow">
-            <nav class="px-6 flex gap-1 w-full max-w-screen-xl items-center justify-between px-4 lg:px-1 xl:px-0">
+            <nav class="px-8 flex gap-1 w-full max-w-screen-xl items-center justify-between px-4 lg:px-1 xl:px-0">
                 <a href="#"
-                    class="font-bold text-lg bg-gradient-to-r from-red-600 to-blue-500 text-transparent bg-clip-text">Formula
-                    1 API <i class="fa-solid fa-gas-pump ml-2 "></i></a>
+                    class="font-bold text-2xl bg-gradient-to-r from-red-600 to-blue-500 text-transparent bg-clip-text">FormulaAPI</a>
                 <div class="flex gap-4">
                     <a href="https://www.uib.cat" target="_blank"
                         class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors flex items-center gap-2"><span
-                            class="md:block hidden">UIB</span><i class="fa-solid fa-globe"></i></a>
+                            class="md:block hidden">UIB</span> <img src="./assets/globe-solid.svg" class="h-4 w-4"
+                            alt="Globe Icon">
+                    </a>
                     <a href="http://ergast.com/mrd/" target="_blank"
                         class="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-400 transition-colors flex items-center gap-2"><span
-                            class="md:block hidden">API</span><i class="fa-solid fa-book"></i></a>
+                            class="md:block hidden">API</span> <img src="./assets/book-solid.svg" class="h-4 w-4"
+                            alt="Documentation Icon">
+                    </a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <div id="full-page-loader" class="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-red-200 z-20 grid place-content-center justify-items-center opacity-transition">
-        <img style="animation: horizontal-shaking 1.3s infinite;" src="./assets/formula.svg" class="w-1/4" alt="Loading...">
-        <p class="text-3xl font-bold -mt-8 ">Cargando datos ...</p>
-      </div>
-      
-    
-    
+    <div id="full-page-loader"
+        class="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-red-200 z-20 grid place-content-center justify-items-center opacity-transition">
+        <img style="animation: horizontal-shaking 1.3s infinite;" src="./assets/formula.svg" class="w-1/4"
+            alt="Loading...">
+        <p class="text-3xl font-bold -mt-8">Cargando datos ...</p>
+    </div>
+
+
+
     <main class="min-h-screen">
         <div class="flex justify-center">
             <section class="grid gap-4 py-4 grid-cols-1 md:grid-cols-2 mx-4 w-full max-w-screen-xl">
@@ -49,14 +53,14 @@
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Bienvenido a la práctica uno de
                         ADIU 👋
                     </h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                    <p class="font-normal text-gray-700 dark:text-gray-700">
                         En esta emocionante práctica, te sumergirás en el fascinante mundo de la visualización de datos
                         a
                         través de la poderosa librería Highcharts. Aquí, explorarás cómo utilizar esta herramienta para
                         representar información de manera efectiva y atractiva.
                     </p>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">
-                        Hemos seleccionado la API de <code class="text-red-500">Ergast</code>, una fuente de datos rica
+                    <p class="font-normal text-gray-700 dark:text-gray-700">
+                        Hemos seleccionado la API de Ergast</code>, una fuente de datos rica
                         y
                         completa relacionada con la Fórmula 1. Esta API nos brinda acceso a una amplia gama de
                         información,
@@ -76,7 +80,7 @@
                         🌍
                     </h5>
 
-                    <div id="container-pie-drivers"></div> <!-- Contenido real -->
+                    <div id="container-pie-drivers"></div>
                 </div>
 
                 <div
@@ -94,12 +98,18 @@
     </main>
 
     <footer class="bg-white text-slate-800 py-2">
-        <div class=" mx-auto text-center">
-            <p>Creado por Martí Paredes
-                <a href="https://github.com/multiparedes" target="_blank"><i class="fa-brands fa-github ml-4"></i></a>
-                <a href="https://www.linkedin.com/in/martiparedessalom/" target="_blank"><i
-                        class="fa-brands fa-linkedin ml-2"></i></a>
+        <div class="mx-auto text-center">
+            <p class="flex justify-center gap-2">
+                Creado por Martí Paredes
+                <a href="https://github.com/multiparedes" target="_blank" class="flex items-center gap-1">
+                    <img src="./assets/github.svg" class="h-4 w-4" alt="GitHub Icon">
+                </a>
+                <a href="https://www.linkedin.com/in/martiparedessalom/" target="_blank"
+                    class="flex items-center gap-1">
+                    <img src="./assets/linkedin.svg" class="h-4 w-4" alt="LinkedIn Icon">
+                </a>
             </p>
+
         </div>
     </footer>
 </body>
@@ -107,14 +117,21 @@
 </html>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
 
-@keyframes horizontal-shaking {
- 0%,100% { transform: translateX(15px) }
- 50% { transform: translateX(-15px) }
-}
-/* En tu archivo de hoja de estilos de Tailwind CSS o en un archivo personalizado */
-.opacity-transition {
-  transition: opacity 0.5s ease; /* Puedes ajustar la duración y la función de temporización según tus preferencias */
-}
+    @keyframes horizontal-shaking {
 
+        0%,
+        100% {
+            transform: translateX(15px)
+        }
+
+        50% {
+            transform: translateX(-15px)
+        }
+    }
+
+    .opacity-transition {
+        transition: opacity 0.5s ease;
+    }
 </style>
