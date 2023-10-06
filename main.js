@@ -3,6 +3,9 @@ import { getDriversNationailty } from "./js/driversNationality.js";
 import { getDriversWins } from "./js/driversWin.js";
 import { getDriversEvolution } from "./js/driversEvolution.js";
 
+const pageLoader = document.getElementById('full-page-loader')
+pageLoader.style.opacity = '100'
+
 document.addEventListener('DOMContentLoaded', async function () {
     // Obtén una referencia al elemento del skeleton loader
     const [drivers, wins, evolution] = await Promise.all([getDriversNationailty(), getDriversWins(), getDriversEvolution()]);
@@ -109,10 +112,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
     
-    
-
-
     Array.from(document.querySelectorAll('.highcharts-credits')).map((item) => {
         item.style.display = 'none';
     });
+
+    pageLoader.style.opacity = '0'
+    await setTimeout(function() {
+        pageLoader.style.display = 'none'
+      }, 500); // Ejemplo: 1000 milisegundos (1 segundo)
 });
