@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             minPointSize: 10,
             innerSize: '20%',
             zMin: 0,
-            data: drivers, 
+            data: drivers,
         }]
     });
 
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         },
         legend: {
-            enabled: false
+            enabled: true
         },
         tooltip: {
             pointFormat: 'Victorias: <b>{point.y}</b>'
@@ -76,11 +76,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         },
         yAxis: {
             title: {
-                text: 'Puntuación por carrera'
-            }
+                text: ''
+            },
         },
         xAxis: {
-            categories: evolution.races,
+            categories: evolution.dates.map(item => item.date), // Asegúrate de que categories coincida con las fechas
         },
         plotOptions: {
             series: {
@@ -95,6 +95,28 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
             }
         },
+        tooltip: {
+            formatter: function () {
+                // Acceder a la fecha y otros datos
+                var date = this.key;
+                var seriesName = this.series.name;
+                var carrera = '';
+
+                // Buscar la carrera correspondiente en evolution.dates
+                var dateIndex = evolution.dates.findIndex(item => item.date === date);
+                if (dateIndex !== -1) {
+                    carrera = evolution.dates[dateIndex].race;
+                }
+
+                // Personalizar el contenido del tooltip
+                var tooltipContent = '<span style="color:' + this.color + '">\u25CF</span> <b>' + seriesName + '</b><br/>Puntos acumulados: ' + this.y + '<br/>Carrera: ' + carrera;
+
+                return tooltipContent;
+            }
+        },
+        legend: {
+            enabled: true
+        },
         series: evolution.drivers,
         responsive: {
             rules: [{
@@ -103,6 +125,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
                 chartOptions: {
                     legend: {
+                        enabled: false,
                         layout: 'horizontal',
                         align: 'center',
                         verticalAlign: 'bottom'
@@ -111,13 +134,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             }]
         }
     });
-    
+
+
     Array.from(document.querySelectorAll('.highcharts-credits')).map((item) => {
         item.style.display = 'none';
     });
 
     pageLoader.style.opacity = '0'
-    await setTimeout(function() {
+    await setTimeout(function () {
         pageLoader.style.display = 'none'
-      }, 500); // Ejemplo: 1000 milisegundos (1 segundo)
+    }, 500); // Ejemplo: 1000 milisegundos (1 segundo)
 });

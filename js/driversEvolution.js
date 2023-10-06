@@ -8,10 +8,12 @@ async function getDriversEvolution() {
 
         const drivers = {};
         const races = [];
+        const dates = []
 
         // Itera a través de las carreras y los resultados
         data.MRData.RaceTable.Races.forEach((race) => {
             races.push(race.Circuit.circuitName ); // Agregar nombre de carrera a la lista de carreras
+            dates.push({date: race.date, race: race.Circuit.circuitName} ); // Agregar nombre de carrera a la lista de carreras
             race.Results.forEach((result) => {
                 const driverName = result.Driver.givenName + ' ' + result.Driver.familyName;
                 const points = parseFloat(result.points); // Convierte los puntos en un número
@@ -33,12 +35,13 @@ async function getDriversEvolution() {
 
         const driverList = Object.values(drivers);
 
+        console.log(driverList)
 
-        return { drivers: driverList, races };
+        return { drivers: driverList, races, dates: dates };
     } catch (error) {
         // Manejo de errores si la solicitud falla
         console.error('Error:', error);
-        return { drivers: [], races: [] };
+        return { drivers: [], races: [], dates: [] };
     }
 }
 
