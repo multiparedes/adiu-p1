@@ -1,6 +1,6 @@
-async function getDriversEvolution() {
+async function getDriversEvolution(season) {
     try {
-        const response = await fetch('https://ergast.com/api/f1/current/results.json?limit=1000');
+        const response = await fetch('https://ergast.com/api/f1/' + season + '/results.json?limit=1000');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

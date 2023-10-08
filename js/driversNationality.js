@@ -1,7 +1,7 @@
-async function getDriversNationailty() {
+async function getDriversNationailty(season) {
 
     try {
-        const response = await fetch('https://ergast.com/api/f1/current/drivers.json?limit=1000');
+        const response = await fetch('https://ergast.com/api/f1/' + season + '/drivers.json?limit=1000');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -11,11 +11,30 @@ async function getDriversNationailty() {
         // Reducir los datos para contar la cantidad de conductores por nacionalidad
         const nationalityCounts = drivers.reduce((counts, driver) => {
             const nationality = driver.nationality;
-            counts[nationality] = (counts[nationality] || 0) + 1;
+            
+            // Si aún no existe la entrada para esta nacionalidad, crea un objeto con la lista de pilotos vacía
+            if (!counts[nationality]) {
+                counts[nationality] = {
+                    count: 0,
+                    drivers: [],
+                };
+            }
+            
+            // Incrementa el contador de esa nacionalidad
+            counts[nationality].count++;
+            
+            // Agrega el nombre del piloto a la lista de pilotos de esa nacionalidad
+            counts[nationality].drivers.push(driver.givenName + ' ' + driver.familyName);
+            
             return counts;
         }, {});
-
-            return Object.entries(nationalityCounts).map(([name, z]) => ({ name, y: z, z }));
+        
+        return Object.entries(nationalityCounts).map(([name, info]) => ({
+            name,
+            y: info.count,
+            z: info.count,
+            drivers: info.drivers, // Lista de nombres de pilotos
+        }));
 
     } catch (error) {
         // Manejo de errores si la solicitud falla

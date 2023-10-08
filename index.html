@@ -44,8 +44,6 @@
         <p class="text-3xl font-bold -mt-8">Cargando datos ...</p>
     </div>
 
-
-
     <main class="min-h-screen">
         <div class="flex justify-center">
             <section class="grid gap-4 py-4 grid-cols-1 md:grid-cols-2 mx-4 w-full max-w-screen-xl">
@@ -69,15 +67,27 @@
                         Además, hemos implementado un sistema de Integración Continua y Despliegue Continuo (CI/CD) para
                         automatizar pruebas y la implementación de código, lo que agiliza el proceso de desarrollo y
                         garantiza una entrega confiable.
+                    </p>
                     <p class="font-normal text-gray-700 ">
-
                         Te invitamos a unirte a nosotros en esta exploración donde utilizamos Highcharts, Tailwind CSS y
                         prácticas de CI/CD para analizar datos relacionados con la Fórmula 1 y crear visualizaciones
                         efectivas.<span class="font-bold"> ¡Empecemos!</span>
                     </p>
                 </div>
+
                 <div
-                    class="w-full max-h-xl p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
+                    class="w-full   p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2">
+                    <div>
+                        
+                        <label for="seasons" class="block mb-2 text-sm font-medium text-gray-900">Seleccionar temporada</label>
+                        <select id="seasons" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                            <option selected value="current">Actual</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Nacionalidad de todos los pilotos
                         🌍
                     </h5>

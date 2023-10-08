@@ -1,7 +1,7 @@
-async function getDriversWins() {
+async function getDriversWins(season) {
 
     try {
-        const response = await fetch('https://ergast.com/api/f1/current/driverStandings.json?limit=1000');
+        const response = await fetch('https://ergast.com/api/f1/' + season + '/driverStandings.json?limit=1000');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
