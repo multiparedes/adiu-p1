@@ -3,7 +3,7 @@ import { getDriversNationailty } from "/js/driversNationality.js";
 import { getDriversWins } from "/js/driversWin.js";
 import { getDriversEvolution } from "/js/driversEvolution.js";
 
-async function mountHighcharts(season) {
+async function mounthighcharts(season) {
     // Obtén una referencia al elemento del skeleton loader
     const [drivers, wins, evolution] = await Promise.all([getDriversNationailty(season), getDriversWins(season), getDriversEvolution(season)]);
 
@@ -153,4 +153,4 @@ async function mountHighcharts(season) {
 
 };
 
-export  {mountHighcharts};
+export  {mounthighcharts};

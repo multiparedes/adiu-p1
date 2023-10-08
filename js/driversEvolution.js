@@ -35,8 +35,6 @@ async function getDriversEvolution(season) {
 
         const driverList = Object.values(drivers);
 
-        console.log(driverList)
-
         return { drivers: driverList, races, dates: dates };
     } catch (error) {
         // Manejo de errores si la solicitud falla
