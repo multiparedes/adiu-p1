@@ -1,4 +1,4 @@
-import { mountHighcharts } from "./js/mounthighcharts.js";
+import { mountHighcharts } from "./js/mountHighcharts.js";
 import { appendSeasonsDropdown } from "./js/seasonsList.js";
 import { getSeasonsList } from "./js/seasonsList.js";
 
