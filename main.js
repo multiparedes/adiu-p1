@@ -1,8 +1,8 @@
 import { appendSeasonsDropdown } from "./js/seasonsList.js";
 import { getSeasonsList } from "./js/seasonsList.js";
-import { getDriversNationailty } from "/js/driversNationality.js";
-import { getDriversWins } from "/js/driversWin.js";
-import { getDriversEvolution } from "/js/driversEvolution.js";
+import { getDriversNationailty } from "./js/driversNationality.js";
+import { getDriversWins } from "./js/driversWin.js";
+import { getDriversEvolution } from "./js/driversEvolution.js";
 
 const pageLoader = document.getElementById('full-page-loader')
 pageLoader.style.opacity = '100'
