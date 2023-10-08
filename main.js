@@ -1,6 +1,6 @@
 import { appendSeasonsDropdown } from "./js/seasonsList.js";
 import { getSeasonsList } from "./js/seasonsList.js";
-import { mounthighcharts } from "./js/mounthighcharts.js";
+import { mounthighcharts } from "./js/mountHighcharts.js";
 
 const pageLoader = document.getElementById('full-page-loader')
 pageLoader.style.opacity = '100'
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     await appendSeasonsDropdown(seasonsList)
     await mounthighcharts('current')
-
 
     pageLoader.style.opacity = '0'
     await setTimeout(function () {
