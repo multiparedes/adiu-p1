@@ -163,13 +163,21 @@ document.addEventListener('DOMContentLoaded', async function () {
         seasonsList = await getSeasonsList()
     } 
 
+    document.getElementById('wins-hero').classList.add('mb-4')
+
     document.getElementById('seasons').addEventListener('change', async (event) => {
         const pageLoader = document.getElementById('full-page-loader')
-        pageLoader.style.opacity = '100'
+        pageLoader.style.opacity = '0'
         pageLoader.style.display = 'grid'
 
+        document.getElementById('wins-hero').classList.add('mb-4')
+
+        await setTimeout(function () {
+            pageLoader.style.opacity = '100'
+        }, 0); 
         
         await mountHighcharts(event.target.value)
+        document.getElementById('wins-hero').classList.remove('mb-4')
 
         pageLoader.style.opacity = '0'
         await setTimeout(function () {
@@ -179,6 +187,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     await appendSeasonsDropdown(seasonsList)
     await mountHighcharts('current')
+
+    document.getElementById('wins-hero').classList.remove('mb-4')
 
     pageLoader.style.opacity = '0'
     await setTimeout(function () {

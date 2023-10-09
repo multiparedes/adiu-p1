@@ -38,7 +38,7 @@
     </header>
 
     <div id="full-page-loader"
-        class="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-red-200 z-20 grid place-content-center justify-items-center opacity-transition">
+        class="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-slate-300 z-20 grid place-content-center justify-items-center opacity-transition">
         <img style="animation: horizontal-shaking 1.3s infinite;" src="./assets/formula.svg" class="w-1/4"
             alt="Loading...">
         <p class="text-3xl font-bold -mt-8">Cargando datos ...</p>
@@ -97,7 +97,7 @@
 
                 <div
                     class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow grid gap-2 col-span-2 md:col-span-1">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Carreras ganadas por pilotos 🏆
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 mb-4" id="wins-hero">Carreras ganadas por pilotos 🏆
                     </h5>
 
                     <div id="container-bars-wins"></div>
@@ -144,6 +144,6 @@
     }
 
     .opacity-transition {
-        transition: all 0.5s ease;
+        transition: opacity 0.5s ease;
     }
 </style>
