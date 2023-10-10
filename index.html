@@ -44,7 +44,7 @@
         <p class="text-3xl font-bold -mt-8 text-slate-800">Cargando datos ...</p>
 
         <div class="mt-4 w-2/3 bg-gray-200 rounded-full h-4">
-            <div class=" bg-gradient-to-r from-blue-200 to-blue-600  h-4 rounded-full width-transition text-xs p-0.5 leading-none font-medium text-blue-100 text-center" style="width: 0%" id="progress-bar"></div>
+            <div class="progress bg-gradient-to-r from-blue-200 to-blue-600  h-4 rounded-full width-transition text-xs p-0.5 leading-none font-medium text-blue-100 text-center" style="width: 0%" id="progress-bar"></div>
           </div>
     </div>
 
@@ -153,5 +153,13 @@
 
     .width-transition {
         transition: width 0.5s ease;
+    }
+
+    .progress{
+        visibility: visible;
+    }
+
+    .progress[style*="width: 0%"] {
+        visibility: hidden;
     }
 </style>
