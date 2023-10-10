@@ -35,6 +35,10 @@ async function getDriversEvolution(season) {
 
         const driverList = Object.values(drivers);
 
+        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 33
+        document.getElementById('progress-bar').innerHTML = actual+'%'
+        document.getElementById('progress-bar').style.width = actual+'%'
+
         return { drivers: driverList, races, dates: dates };
     } catch (error) {
         // Manejo de errores si la solicitud falla

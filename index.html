@@ -41,7 +41,11 @@
         class="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-slate-300 z-20 grid place-content-center justify-items-center opacity-transition">
         <img style="animation: horizontal-shaking 1.3s infinite;" src="./assets/formula.svg" class="w-1/4"
             alt="Loading...">
-        <p class="text-3xl font-bold -mt-8">Cargando datos ...</p>
+        <p class="text-3xl font-bold -mt-8 text-slate-800">Cargando datos ...</p>
+
+        <div class="mt-4 w-2/3 bg-gray-200 rounded-full h-4">
+            <div class=" bg-gradient-to-r from-blue-200 to-blue-600  h-4 rounded-full width-transition text-xs p-0.5 leading-none font-medium text-blue-100 text-center" style="width: 0%" id="progress-bar"></div>
+          </div>
     </div>
 
     <main class="min-h-screen">
@@ -145,5 +149,9 @@
 
     .opacity-transition {
         transition: opacity 0.5s ease;
+    }
+
+    .width-transition {
+        transition: width 0.5s ease;
     }
 </style>

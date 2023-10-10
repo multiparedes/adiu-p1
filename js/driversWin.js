@@ -15,6 +15,9 @@ async function getDriversWins(season) {
         })); // Filtrar conductores con victorias > 0
 
 
+        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 33
+        document.getElementById('progress-bar').style.width = actual+'%'
+        document.getElementById('progress-bar').innerHTML = actual+'%'
         return winsData;
     } catch (error) {
         // Manejo de errores si la solicitud falla

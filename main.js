@@ -9,6 +9,8 @@ pageLoader.style.opacity = '100'
 pageLoader.style.display = 'grid'
 
 async function mountHighcharts(season) {
+    document.getElementById('progress-bar').style.width = '0%'
+    
     const [drivers, wins, evolution] = await Promise.all([getDriversNationailty(season), getDriversWins(season), getDriversEvolution(season)]);
 
 
@@ -154,7 +156,6 @@ async function mountHighcharts(season) {
     Array.from(document.querySelectorAll('.highcharts-credits')).map((item) => {
         item.style.display = 'none';
     });
-
 };
 
 let seasonsList = null
@@ -167,6 +168,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     document.getElementById('seasons').addEventListener('change', async (event) => {
         const pageLoader = document.getElementById('full-page-loader')
+        document.getElementById('progress-bar').style.width = '0%'
         pageLoader.style.opacity = '0'
         pageLoader.style.display = 'grid'
 
@@ -178,6 +180,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         
         await mountHighcharts(event.target.value)
         document.getElementById('wins-hero').classList.remove('mb-4')
+        document.getElementById('progress-bar').style.width = '100%'
+        document.getElementById('progress-bar').innerHTML = '100%'
 
         pageLoader.style.opacity = '0'
         await setTimeout(function () {
@@ -189,6 +193,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     await mountHighcharts('current')
 
     document.getElementById('wins-hero').classList.remove('mb-4')
+    document.getElementById('progress-bar').style.width = '100%'
+    document.getElementById('progress-bar').innerHTML = '100%'
 
     pageLoader.style.opacity = '0'
     await setTimeout(function () {
