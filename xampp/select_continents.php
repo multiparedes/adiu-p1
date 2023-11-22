@@ -16,10 +16,10 @@ if (!$con) {
 }
 
 // Your SQL query for SELECT
-mysqli_select_db($con, "ajax_demo")
+mysqli_select_db($con, "ajax_demo");
 # agafam ses carreres que han passat a n'aquell any
 # q se passa per parametre i ho convertim amb dues dates, que marquen es principi i es final de s'any
-$date_min = date('Y-m-d', strtotime($year . '-01-01')); 
+$date_min = '2000-01-01'
 $date_max = date('Y-m-d', strtotime($year + 1 . '-01-01')); 
 $sql = "SELECT location,COUNT(*) as count
 FROM races 
@@ -27,11 +27,6 @@ WHERE race_date > $date_min AND race_date < $date_max
 GROUP BY location 
 ORDER BY count DESC;";
 $result = mysqli_query($con,$sql);
-// Execute the query
-
-
-
-
 // Close the connection
 mysqli_close($con);
 ?>

@@ -12,11 +12,19 @@ async function mountHighcharts(season) {
     document.getElementById('progress-bar').style.width = '0%'
     
     const [drivers, wins, evolution] = await Promise.all([getDriversNationailty(season), getDriversWins(season), getDriversEvolution(season)]);
+    
+    var xhr = new XMLHttpRequest();
 
-
+    // Specify the type of request (GET) and the URL to send the request to
+    var url = "xampp/select_continents.php?q=" + 2001;
+    xhr.open("GET", url, true);
+    //const[continents, appearances] = fetch phps
+    xhr.send();
     document.getElementById('container-pie-drivers').innerHTML=""
     document.getElementById('container-bars-wins').innerHTML=""
     document.getElementById('container-chart-evolution').innerHTML=""
+    document.getElementById('container-continent-races').innerHTML=""
+    document.getElementById('container-apearances-circuit').innerHTML=""
 
     Highcharts.chart('container-pie-drivers', {
         chart: {
@@ -151,6 +159,107 @@ async function mountHighcharts(season) {
             }]
         }
     });
+
+   /* Highcharts.chart('container-continent-races', {
+        chart: {
+            type: 'variablepie'
+        },
+        title: {
+            text: '',
+            align: 'left'
+        },
+        tooltip: {
+            headerFormat: '',
+            formatter: function () {
+                var punto = this.point;
+        
+                // Obtenemos la lista de nombres de pilotos para esta nacionalidad
+                var continentes = punto.drivers.join(', ');
+        
+                var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.name + '</b><br/>' +
+                    'Número: <b>' + punto.z + '</b><br/>' +
+                    // Agregamos los nombres de pilotos relacionados con esta nacionalidad
+                    'Pilotos: <b>' + continentes + '</b><br/>';
+                
+                return tooltipContent;
+            }
+        },
+        
+        series: [{
+            minPointSize: 10,
+            innerSize: '20%',
+            zMin: 0,
+            data: continents,
+        }]
+    });
+    
+        Highcharts.chart('container-apearances-circuit', {
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: '',
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+        },
+        xAxis: {
+            categories: apparances.dates.map(item => item.date), 
+        },
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                }
+            },
+            spline: {
+                lineWidth: 2,
+                marker: {
+                    enabled: false
+                },
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                var date = this.key;
+                var seriesName = this.series.name;
+                var carrera = '';
+
+                var dateIndex = apparances.dates.findIndex(item => item.date === date);
+                if (dateIndex !== -1) {
+                    carrera = apparances.dates[dateIndex].race;
+                }
+
+                var tooltipContent = '<span style="color:' + this.color + '">\u25CF</span> <b>' + seriesName + '</b><br/>Puntos acumulados: ' + this.y + '<br/>Carrera: ' + carrera;
+
+                return tooltipContent;
+            }
+        },
+        legend: {
+            enabled: true
+        },
+        series: apparances.names,
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        enabled: false,
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    });
+    
+    */
+
 
 
     Array.from(document.querySelectorAll('.highcharts-credits')).map((item) => {
