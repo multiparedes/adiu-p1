@@ -8,24 +8,36 @@ const pageLoader = document.getElementById('full-page-loader')
 pageLoader.style.opacity = '100'
 pageLoader.style.display = 'grid'
 
+function hacerPeticionAJAX() {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const datos = JSON.parse(xhr.responseText);
+                    resolve(datos);
+                    console.log(datos);
+                } else {
+                    reject('Hubo un error en la solicitud.');
+                }
+            }
+        };
+            xhr.open('GET', 'queryG.php', true);
+            xhr.send();
+        });
+}
+
 async function mountHighcharts(season) {
     document.getElementById('progress-bar').style.width = '0%'
     
     const [drivers, wins, evolution] = await Promise.all([getDriversNationailty(season), getDriversWins(season), getDriversEvolution(season)]);
-    
-    var xhr = new XMLHttpRequest();
 
-    // Specify the type of request (GET) and the URL to send the request to
-    var url = "xampp/select_continents.php?q=" + 2001;
-    xhr.open("GET", url, true);
-    //const[continents, appearances] = fetch phps
-    xhr.send();
     document.getElementById('container-pie-drivers').innerHTML=""
     document.getElementById('container-bars-wins').innerHTML=""
     document.getElementById('container-chart-evolution').innerHTML=""
     document.getElementById('container-continent-races').innerHTML=""
     document.getElementById('container-apearances-circuit').innerHTML=""
-
+    const continents = await hacerPeticionAJAX();
     Highcharts.chart('container-pie-drivers', {
         chart: {
             type: 'variablepie'
