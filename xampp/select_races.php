@@ -1,37 +1,30 @@
 <?php
+session_start();
 
-$q = intval($_GET['q']);
-
-$host = "localhost";
-$username = "your_username";
-$password = "your_password";
-$database = "adiu_p1";
-
-// Create a connection
-$con = new mysqli($host, $username, $password, $database);
-
-// Check the connection
+$con = mysqli_connect("localhost", "root", "");
 if (!$con) {
-    die("Connection failed: " . mysqli_error($con));
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-// Your SQL query for SELECT
-mysqli_select_db($con, "ajax_demo")
-# agafam ses carreres que han passat despres de s'any q
-# q se passa per parametre i ho convertim amb una data
-$date = date('Y-m-d', strtotime($year . '-01-01')); 
+$db = mysqli_select_db($con, "adiu_p1") or die("Fatal error: Database error!");
 
 $sql = "SELECT race_name,COUNT(*) as count 
 FROM races 
-WHERE race_date > $date
 GROUP BY race_name 
 ORDER BY count DESC;";
-$result = mysqli_query($con,$sql);
-// Execute the query
+$result = $con->query($sql);
 
+if (!$result) {
+    die('Error in query: ' . $con->error);
+}
 
+$rows = array();
+while ($row = $result->fetch_assoc()) {
+    $rows[] = $row;
+}
 
+echo json_encode($rows);
 
-// Close the connection
-mysqli_close($con);
+$con->close();
+session_destroy();
 ?>

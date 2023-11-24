@@ -8,24 +8,6 @@ const pageLoader = document.getElementById('full-page-loader')
 pageLoader.style.opacity = '100'
 pageLoader.style.display = 'grid'
 
-function hacerPeticionAJAX() {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const datos = JSON.parse(xhr.responseText);
-                    resolve(datos);
-                    console.log(datos);
-                } else {
-                    reject('Hubo un error en la solicitud.');
-                }
-            }
-        };
-            xhr.open('GET', 'queryG.php', true);
-            xhr.send();
-        });
-}
 
 async function mountHighcharts(season) {
     document.getElementById('progress-bar').style.width = '0%'
@@ -37,7 +19,21 @@ async function mountHighcharts(season) {
     document.getElementById('container-chart-evolution').innerHTML=""
     document.getElementById('container-continent-races').innerHTML=""
     document.getElementById('container-apearances-circuit').innerHTML=""
-    const continents = await hacerPeticionAJAX();
+    /*const continents = await hacerPeticionAJAX_continents();
+    const races = await hacerPeticionAJAX_circuits();
+    var continents_map = continents.map(function (continent) {
+        return {
+        name: continent.location,
+        y: parseInt(continent.count)
+        };
+    });
+    var races_map = races.map(function (race) {
+        return {
+        name: race.race_name,
+        y: parseInt(race.count)
+        };
+    });
+    */
     Highcharts.chart('container-pie-drivers', {
         chart: {
             type: 'variablepie'
@@ -172,7 +168,7 @@ async function mountHighcharts(season) {
         }
     });
 
-   /* Highcharts.chart('container-continent-races', {
+   /*Highcharts.chart('container-continent-races', {
         chart: {
             type: 'variablepie'
         },
@@ -181,93 +177,56 @@ async function mountHighcharts(season) {
             align: 'left'
         },
         tooltip: {
-            headerFormat: '',
-            formatter: function () {
-                var punto = this.point;
-        
-                // Obtenemos la lista de nombres de pilotos para esta nacionalidad
-                var continentes = punto.drivers.join(', ');
-        
-                var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.name + '</b><br/>' +
-                    'Número: <b>' + punto.z + '</b><br/>' +
-                    // Agregamos los nombres de pilotos relacionados con esta nacionalidad
-                    'Pilotos: <b>' + continentes + '</b><br/>';
-                
-                return tooltipContent;
-            }
+        headerFormat: '',
+        formatter: function () {
+            var punto = this.point;
+            var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.location + '</b><br/>' +
+            'Número: <b>' + punto.y + '</b><br/>';
+            return tooltipContent;
+        }
         },
-        
         series: [{
-            minPointSize: 10,
-            innerSize: '20%',
-            zMin: 0,
-            data: continents,
+        minPointSize: 10,
+        innerSize: '20%',
+        zMin: 0,
+        data: continents_map,
         }]
     });
+
     
         Highcharts.chart('container-apearances-circuit', {
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
-            text: '',
-        },
-        yAxis: {
-            title: {
-                text: ''
-            },
+            text: ''
         },
         xAxis: {
-            categories: apparances.dates.map(item => item.date), 
+            type: 'category',
         },
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                }
-            },
-            spline: {
-                lineWidth: 2,
-                marker: {
-                    enabled: false
-                },
-            }
-        },
-        tooltip: {
-            formatter: function () {
-                var date = this.key;
-                var seriesName = this.series.name;
-                var carrera = '';
-
-                var dateIndex = apparances.dates.findIndex(item => item.date === date);
-                if (dateIndex !== -1) {
-                    carrera = apparances.dates[dateIndex].race;
-                }
-
-                var tooltipContent = '<span style="color:' + this.color + '">\u25CF</span> <b>' + seriesName + '</b><br/>Puntos acumulados: ' + this.y + '<br/>Carrera: ' + carrera;
-
-                return tooltipContent;
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
             }
         },
         legend: {
-            enabled: true
+            enabled: false
         },
-        series: apparances.names,
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        enabled: false,
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
+        tooltip: {
+            headerFormat: '',
+            pointFormat: 'Apariciones: <b>{point.y}</b>'
+        },
+        series: [{
+            name: 'Apariciones',
+            colorByPoint: true,
+            data: races_map,
+            dataLabels: {
+                enabled: true,
+                align: 'center',
+                format: '{point.y}',
+            }
+        }]
     });
     
     */
@@ -278,6 +237,45 @@ async function mountHighcharts(season) {
         item.style.display = 'none';
     });
 };
+
+function hacerPeticionAJAX_continents() {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const datos = JSON.parse(xhr.responseText);
+                    resolve(datos);
+                    console.log(datos);
+                } else {
+                    reject('Hubo un error en la solicitud.');
+                }
+            }
+        };
+            xhr.open('GET', 'xampp/select_continents.php', true);
+            xhr.send();
+        });
+}
+
+function hacerPeticionAJAX_circuits() {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const datos = JSON.parse(xhr.responseText);
+                    resolve(datos);
+                    console.log(datos);
+                } else {
+                    reject('Hubo un error en la solicitud.');
+                }
+            }
+        };
+            xhr.open('GET', 'xampp/select_races.php', true);
+            xhr.send();
+        });
+}
+
 
 let seasonsList = null
 document.addEventListener('DOMContentLoaded', async function () {   
