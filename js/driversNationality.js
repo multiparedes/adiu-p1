@@ -29,7 +29,7 @@ async function getDriversNationailty(season) {
             return counts;
         }, {});
         
-        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 33
+        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 25
         document.getElementById('progress-bar').style.width = actual+'%'
         document.getElementById('progress-bar').innerHTML = actual+'%'
 

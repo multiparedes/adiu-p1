@@ -35,7 +35,7 @@ async function getDriversEvolution(season) {
 
         const driverList = Object.values(drivers);
 
-        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 33
+        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 25
         document.getElementById('progress-bar').innerHTML = actual+'%'
         document.getElementById('progress-bar').style.width = actual+'%'
 

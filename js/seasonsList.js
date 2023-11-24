@@ -9,6 +9,9 @@ async function getSeasonsList() {
         const seasons = data.MRData.SeasonTable.Seasons.map((season) => season.season)
         seasons.pop();
         
+        const actual = parseFloat(document.getElementById('progress-bar').style.width) + 25
+        document.getElementById('progress-bar').innerHTML = actual+'%'
+        document.getElementById('progress-bar').style.width = actual+'%'
 
         return seasons.sort((a, b) => b - a)
     } catch (error) {
