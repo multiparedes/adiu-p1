@@ -19,12 +19,13 @@ async function mountHighcharts(season) {
     document.getElementById('container-chart-evolution').innerHTML=""
     document.getElementById('container-continent-races').innerHTML=""
     document.getElementById('container-apearances-circuit').innerHTML=""
-    /*const continents = await hacerPeticionAJAX_continents();
+    const continents = await hacerPeticionAJAX_continents();
     const races = await hacerPeticionAJAX_circuits();
     var continents_map = continents.map(function (continent) {
         return {
         name: continent.location,
-        y: parseInt(continent.count)
+        y: parseInt(continent.count),
+        z: parseInt(continent.count)
         };
     });
     var races_map = races.map(function (race) {
@@ -33,7 +34,7 @@ async function mountHighcharts(season) {
         y: parseInt(race.count)
         };
     });
-    */
+
     Highcharts.chart('container-pie-drivers', {
         chart: {
             type: 'variablepie'
@@ -64,6 +65,31 @@ async function mountHighcharts(season) {
             innerSize: '20%',
             zMin: 0,
             data: drivers,
+        }]
+    });
+
+    Highcharts.chart('container-continent-races', {
+        chart: {
+            type: 'variablepie'
+        },
+        title: {
+            text: '',
+            align: 'left'
+        },
+        tooltip: {
+            headerFormat: '',
+            formatter: function () {
+                var punto = this.point;
+                var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.location + '</b><br/>' +
+                'Número: <b>' + punto.y + '</b><br/>';
+                return tooltipContent;
+            }
+        },
+        series: [{
+        minPointSize: 10,
+        innerSize: '20%',
+        zMin: 0,
+        data: continents_map,
         }]
     });
 
@@ -167,8 +193,7 @@ async function mountHighcharts(season) {
             }]
         }
     });
-
-   /*Highcharts.chart('container-continent-races', {
+    Highcharts.chart('container-continent-races', {
         chart: {
             type: 'variablepie'
         },
@@ -180,7 +205,7 @@ async function mountHighcharts(season) {
         headerFormat: '',
         formatter: function () {
             var punto = this.point;
-            var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.location + '</b><br/>' +
+            var tooltipContent = '<span style="color:' + punto.color + '">\u25CF</span> <b>' + punto.name + '</b><br/>' +
             'Número: <b>' + punto.y + '</b><br/>';
             return tooltipContent;
         }
@@ -229,7 +254,6 @@ async function mountHighcharts(season) {
         }]
     });
     
-    */
 
 
 
@@ -284,6 +308,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     } 
 
     document.getElementById('wins-hero').classList.add('mb-4')
+    document.getElementById('continent-hero').classList.add('mb-4')
 
     document.getElementById('seasons').addEventListener('change', async (event) => {
         const pageLoader = document.getElementById('full-page-loader')
@@ -292,6 +317,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         pageLoader.style.display = 'grid'
 
         document.getElementById('wins-hero').classList.add('mb-4')
+        document.getElementById('continent-hero').classList.add('mb-4')
+
 
         await setTimeout(function () {
             pageLoader.style.opacity = '100'
@@ -299,6 +326,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         
         await mountHighcharts(event.target.value)
         document.getElementById('wins-hero').classList.remove('mb-4')
+        document.getElementById('continent-hero').classList.remove('mb-4')
         document.getElementById('progress-bar').style.width = '100%'
         document.getElementById('progress-bar').innerHTML = '100%'
 
@@ -312,6 +340,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     await mountHighcharts('current')
 
     document.getElementById('wins-hero').classList.remove('mb-4')
+    document.getElementById('continent-hero').classList.remove('mb-4')
     document.getElementById('progress-bar').style.width = '100%'
     document.getElementById('progress-bar').innerHTML = '100%'
 
